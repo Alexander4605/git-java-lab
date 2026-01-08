@@ -8,9 +8,16 @@ Welcome! The goal of today's session is to master the **Git Terminal** workflow.
 GitHub no longer accepts your account password for terminal operations. To upload your code, you must use a **Personal Access Token (PAT)**.
 
 1.  **Generate Token:** Go to your GitHub [Settings](https://github.com/settings/profile) -> **Developer settings** -> **Personal access tokens** -> **Tokens (classic)**.
-2.  **Configure:** Click **Generate new token (classic)**. Give it a name (e.g., "Lab Token"), set an expiration, and select the **'repo'** checkbox.
-3.  **Save it:** Click **Generate token**. **Copy the code immediately** (you won't see it again).
-4.  **Usage:** When the terminal asks for your **Username**, type your GitHub name. When it asks for your **Password**, paste this **Token**.
+2.  **Configure:** Click **Generate new token (classic)**. Give it a name (e.g., "Lab Token").
+3.  **Scopes:** Select the **'repo'** checkbox AND the **'workflow'** checkbox.
+4.  **Save it:** Click **Generate token**. **Copy the code immediately** (you won't see it again).
+5.  **Save credentials (Optional but recommended):** To avoid pasting the token every time you push, run this command in your terminal before starting:
+
+```bash
+git config --global credential.helper store
+```
+
+6.  **Usage:** The first time you push, the terminal will ask for your **Username** (type your GitHub name) and **Password** (paste the **Token**). Because of the command above, it will be saved for future use.
 
 ---
 
@@ -18,34 +25,42 @@ GitHub no longer accepts your account password for terminal operations. To uploa
 
 In this exercise, you will practice how to work on your own project where you have full control and don't need to ask for permission to merge changes.
 
-### 1. Fork and Clone
-First, click the **"Fork"** button at the top right of this page. Once you have your own copy, clone it to your computer (replace `YOUR_USERNAME` with your actual GitHub username):
+### 1. Fork the Project
+Click the **"Fork"** button at the top right of this GitHub page. This creates a personal copy of the repository under your own GitHub account.
+
+### 2. Clone
+Once you have your own copy, clone it to your computer (replace `YOUR_USERNAME` with your actual GitHub username):
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/git-java-lab.git
+```
+
+```bash
 cd git-java-lab
 ```
 
-### 2. Create a "Solo" Branch
+### 3. Create a Working Branch
 It is best practice to never work directly on `main`. Create a branch for a new feature:
 
 ```bash
 git checkout -b my-solo-test
 ```
 
-### 3. Make a Change
-Create a new file called `notes.txt` using the terminal or your preferred text editor:
+> **Note:** The command `git checkout -b name` is a shortcut that does two things at once:
+> 1. `git branch my-solo-test` (Creates the branch)
+> 2. `git checkout my-solo-test` (Switches/moves your terminal to that branch)
 
-```bash
-echo "Learning git is fun" > notes.txt
-```
+### 4. Make a Change
+Create a new file called `notes.txt` using the terminal or your preferred text editor.
 
-### 4. Commit and Merge locally
+### 5. Commit and Merge locally
 Instead of using the GitHub website, you will merge the change yourself directly in the terminal:
 
 ```bash
 git add .
 ```
+
+> **Note on `git add .`**: The dot (`.`) tells Git to stage **all** changes and new files in the current folder. It is very fast but you should be careful not to add files you don't want (like temporary files).
 
 ```bash
 git commit -m "Add personal notes file"
@@ -61,7 +76,7 @@ Merge the solo branch into main
 git merge my-solo-test
 ```
 
-### 5. Push to your Cloud
+### 6. Push to your Cloud
 Now that your local `main` is updated, upload it to your GitHub profile:
 
 ```bash
@@ -90,6 +105,9 @@ You must save your changes to the git history:
 
 ```bash
 git add Participants.java
+```
+> **Note on `git add [filename]`**: Specifying the file name is the **safest** way to work. It ensures you only stage the exact file you intended to change, ignoring any other accidental modifications in the project.
+```bash
 git commit -m "Add [Your Name] to the participants list"
 ```
 
@@ -102,9 +120,8 @@ git push origin your-name-surname
 
 ### 5. Open the Pull Request
 1. Go to **your fork** on the GitHub website.
-2. Look for a yellow notification bar that says **"Compare & pull request"** and click it.
-3. Ensure the **"base repository"** points to the professor's original project.
-4. Click the green **"Create pull request"** button.
+2. Look for a notification bar that says **"Compare & pull request"** and click it.
+3. Click the green **"Create pull request"** button.
 
 ---
 
